@@ -15,7 +15,7 @@ vulnerable: vulnerable.c
         ${CC} ${CFLAGS} vulnerable.c -o vulnerable
 ```
 
-To generate the binaries:
+To generate the binaries (see the [Docs](https://aflplus.plus/docs/env_variables/)):
 ```
 CC=afl-clang-fast AFL_HARDEN=1 make
 ```
