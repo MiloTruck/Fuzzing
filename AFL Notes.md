@@ -15,7 +15,7 @@ Optional flags:
 | Flag     | Example     | Explanation                                                                                |
 |----------|-------------|--------------------------------------------------------------------------------------------|
 | -x dict  | -x my.dict  | Use dictionary                                                                             |
-| -M/-S id | -M fuzzer01 | Parallel fuzzing, refer to [Parallel Fuzzing](https://aflplus.plus/docs/parallel_fuzzing/) |
+| -M/-S id | -M fuzzer01 | Parallel fuzzing, refer to [Parallel Fuzzing Docs](https://aflplus.plus/docs/parallel_fuzzing/) |
 
 Dictionaries can be found:
 * In the `AFLplusplus/dictionaries` directory.
