@@ -12,10 +12,10 @@ afl-fuzz -i inputs -o out ./vulnerable
 ```
 
 Optional flags:
-| Flag       | Example                 | Explanation                                                            |
-|------------|-------------------------|------------------------------------------------------------------------|
-| -x <dict>  | -x my.dict              | Use dictionary                                                         |
-| -M/-S <id> | -M fuzzer01             | Parallel fuzzing, refer to https://aflplus.plus/docs/parallel_fuzzing/ |
+| Flag     | Example     | Explanation                                                                                |
+|----------|-------------|--------------------------------------------------------------------------------------------|
+| -x dict  | -x my.dict  | Use dictionary                                                                             |
+| -M/-S id | -M fuzzer01 | Parallel fuzzing, refer to [Parallel Fuzzing](https://aflplus.plus/docs/parallel_fuzzing/) |
 
 Dictionaries can be found:
 * In the `AFLplusplus/dictionaries` directory.
