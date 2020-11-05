@@ -26,10 +26,16 @@ CC=afl-clang-fast AFL_HARDEN=1 AFL_NO_BUILTIN=1 make
 ```
 
 ## afl-fuzz
-`afl-fuzz` syntax:
+For programs that taken input directly from STDIN:
 ```
 afl-fuzz -i <input dir> -o <output dir> <vulnerable program>
 afl-fuzz -i inputs -o out ./vulnerable
+```
+
+For programs that take a file as input, use `@@` to mark where the input file name should be:
+```
+afl-fuzz -i <input dir> -o <output dir> <vulnerable program> @@
+afl-fuzz -i inputs -o out /path/to/program @@
 ```
 
 Optional flags:
