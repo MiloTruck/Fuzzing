@@ -65,3 +65,8 @@ done
 
 sort -u temp_output.txt > afl_dictionary.dict
 ```
+
+## Corpus
+* https://github.com/strongcourage/fuzzing-corpus
+* https://github.com/dvyukov/go-fuzz-corpus
+* Images: https://lcamtuf.coredump.cx/afl/demo/
