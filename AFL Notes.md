@@ -102,6 +102,13 @@ int main(int argc, char **argv) {
 }
 ```
 
+## Ram Disks for SSDs
+```bash
+mkdir /tmp/afl-ramdisk && chmod 777 /tmp/afl-ramdisk
+mount -t tmpfs -o size=512M tmpfs /tmp/afl-ramdisk
+cd /tmp/afl-ramdisk
+```
+
 ## Corpus
 * https://github.com/strongcourage/fuzzing-corpus
 * https://github.com/dvyukov/go-fuzz-corpus
