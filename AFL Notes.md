@@ -117,7 +117,7 @@ Environment variables can be set with the following before running `afl-fuzz`:
 export AFL_QEMU_PERSISTENT_ADDR=
 export AFL_QEMU_PERSISTENT_RET=
 export AFL_QEMU_PERSISTENT_GPR=1
-afl-fuzz -Q -i <input dir> -o <output dir> <vulnerable program> @@
+afl-fuzz -Q -m none -i <input dir> -o <output dir> <vulnerable program> @@
 ```
 
 Persistent Mode environment variables [Persistent Mode Docs](https://github.com/AFLplusplus/AFLplusplus/blob/stable/qemu_mode/README.persistent.md):
