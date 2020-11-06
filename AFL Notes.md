@@ -68,7 +68,7 @@ sort -u temp_output.txt > afl_dictionary.dict
 ```
 
 ## Persistent Mode
-Useful for fast targets, provides x2 speed boost.
+Useful for fast targets, provides x2 speed boost. Example `harness.c`:
 
 ```c
 #include <stdio.h>
@@ -83,7 +83,7 @@ int main(int argc, char **argv) {
     #ifdef __AFL_HAVE_MANUAL_CONTROL
         __AFL_INIT();
     #endif
-    unsigned char *buf = __AFL_FUZZ_TESTCASE_BUF; // must be after __AFL_INIT
+    unsigned char *buf = __AFL_FUZZ_TESTCASE_BUF;
     
     /* Initialize all varibles appropriate for the program */
     char buf[100];
