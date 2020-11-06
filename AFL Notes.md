@@ -44,7 +44,7 @@ Optional flags:
 | -x <dict>  | -x my.dict              | Use dictionary                                                         |
 | -m <amount>| -m none                 | Memory limit for child process                                         |
 | -Q         | None                    | QEMU Mode for binary-only fuzzing                                      |
-| -M/-S <id> | -M fuzzer01             | Parallel fuzzing, refer to https://aflplus.plus/docs/parallel_fuzzing/ |
+| -M/-S <id> | -M fuzzer01             | Parallel fuzzing, refer to [Parallel Fuzzing Docs](https://aflplus.plus/docs/parallel_fuzzing/) |
 
 Dictionaries can be found:
 * In the `AFLplusplus/dictionaries` directory.
