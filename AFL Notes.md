@@ -43,29 +43,12 @@ Optional flags:
 |------------|-------------------------|------------------------------------------------------------------------|
 | -x <dict>  | -x my.dict              | Use dictionary                                                         |
 | -m <amount>| -m none                 | Memory limit for child process                                         |
+| -Q         | None                    | QEMU Mode for binary-only fuzzing                                      |
 | -M/-S <id> | -M fuzzer01             | Parallel fuzzing, refer to https://aflplus.plus/docs/parallel_fuzzing/ |
 
 Dictionaries can be found:
 * In the `AFLplusplus/dictionaries` directory.
 * [LibFuzzer's Collection](https://chromium.googlesource.com/chromium/src/+/master/testing/libfuzzer/fuzzers/dicts)
-
-## libtokencap
-Can be found in `AFLplusplus/libtokencap`
-
-Load the library via LD_PRELOAD. The optimal usage
-pattern is to allow afl-fuzz to fuzz normally for a while and build up a corpus,
-and then fire off the target binary, with libtokencap.so loaded, on every file
-found by AFL in that earlier run. This demonstrates the basic principle:
-```bash
-export AFL_TOKEN_FILE=$PWD/temp_output.txt
-touch $PWD/temp_output.txt
-
-for i in <out_dir>/queue/id*; do
-    cat $i | LD_PRELOAD= /mnt/c/Users/brand/Tools/AFLplusplus/libtokencap.so /path/to/target/program [...params]
-done
-
-sort -u temp_output.txt > afl_dictionary.dict
-```
 
 ## Persistent Mode and Deferred Fork-server
 Find a location in code where cloning can take place. It should be before:
@@ -124,6 +107,39 @@ int main(int argc, char **argv) {
 
     return 0;
 }
+```
+
+## Binary-only Fuzzing (QEMU)
+Run `afl-fuzz` with the `-Q` flag, which will enable QEMU mode.
+
+Persistent Mode environment variables [Persistent Mode Docs](https://github.com/AFLplusplus/AFLplusplus/blob/stable/qemu_mode/README.persistent.md):
+| Environment Variable     | Explanation   |
+|--------------------------|---------------|
+| AFL_QEMU_PERSISTENT_ADDR | START Address |
+| AFL_QEMU_PERSISTENT_RET  | RET Address   |
+| AFL_QEMU_PERSISTENT_RETADDR_OFFSET  | RET Offset if RET Address not set   |
+| AFL_QEMU_PERSISTENT_GPR  | Restore registers, set to 1   |
+| AFL_QEMU_PERSISTENT_CNT  | Loop counter, should be between 100 and 10000|
+
+Documentation
+* [General Docs](https://github.com/AFLplusplus/AFLplusplus/blob/stable/qemu_mode/README.md) 
+
+## libtokencap
+Can be found in `AFLplusplus/libtokencap`
+
+Load the library via LD_PRELOAD. The optimal usage
+pattern is to allow afl-fuzz to fuzz normally for a while and build up a corpus,
+and then fire off the target binary, with libtokencap.so loaded, on every file
+found by AFL in that earlier run. This demonstrates the basic principle:
+```bash
+export AFL_TOKEN_FILE=$PWD/temp_output.txt
+touch $PWD/temp_output.txt
+
+for i in <out_dir>/queue/id*; do
+    cat $i | LD_PRELOAD= /mnt/c/Users/brand/Tools/AFLplusplus/libtokencap.so /path/to/target/program [...params]
+done
+
+sort -u temp_output.txt > afl_dictionary.dict
 ```
 
 ## Ram Disks for SSDs
