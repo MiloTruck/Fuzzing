@@ -83,24 +83,19 @@ int main(int argc, char **argv) {
     #ifdef __AFL_HAVE_MANUAL_CONTROL
         __AFL_INIT();
     #endif
-    unsigned char *buf = __AFL_FUZZ_TESTCASE_BUF;
-    
-    /* Initialize all varibles appropriate for the program */
-    char buf[100];
+    unsigned char *buf = __AFL_FUZZ_TESTCASE_BUF; // AFL testcase input
     
     // Number passed to __AFL_LOOP() is the maximum number of iterations before termination
     while (__AFL_LOOP(1000)) {
-        /* Program to fuzz here 
-           STEP 1: Re-initialize all critical varibles */
+        int len = __AFL_FUZZ_TESTCASE_LEN; // Length of testcase
         
-        memset(buf, 0, 100);
-        
-        /* STEP 2: Read input data, either from STDIN or files.
-                   For files, use fopen() and remember to close the old descriptor. */
-        
-        read(0, buf, 100);
-        
-        /* STEP 3: Call the tested library on data, main program logic here. */
+        /* Main program logic here, testcase stored in buf, can be access using: 
+          
+          (char *) buf 
+          
+          For example: */
+          
+        xmlDocPtr doc = doc = xmlReadMemory((char *) buf, len, "noname.xml", NULL, 0); //xmlReadFile(argv[1], NULL, 0);
     }
 
     return 0;
