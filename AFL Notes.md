@@ -95,7 +95,7 @@ int main(int argc, char **argv) {
           
           For example: */
           
-        xmlDocPtr doc = doc = xmlReadMemory((char *) buf, len, "noname.xml", NULL, 0); //xmlReadFile(argv[1], NULL, 0);
+        xmlDocPtr doc = doc = xmlReadMemory((char *) buf, len, "noname.xml", NULL, 0);
     }
 
     return 0;
