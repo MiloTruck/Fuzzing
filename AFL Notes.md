@@ -67,6 +67,46 @@ done
 sort -u temp_output.txt > afl_dictionary.dict
 ```
 
+## Persistent Mode
+Useful for fast targets, provides x2 speed boost.
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <string.h>
+
+__AFL_FUZZ_INIT();
+
+int main(int argc, char **argv) {
+    #ifdef __AFL_HAVE_MANUAL_CONTROL
+        __AFL_INIT();
+    #endif
+    unsigned char *buf = __AFL_FUZZ_TESTCASE_BUF; // must be after __AFL_INIT
+    
+    /* Initialize all varibles appropriate for the program */
+    char buf[100];
+    
+    // Number passed to __AFL_LOOP() is the maximum number of iterations before termination
+    while (__AFL_LOOP(1000)) {
+        /* Program to fuzz here 
+           STEP 1: Re-initialize all critical varibles */
+        
+        memset(buf, 0, 100);
+        
+        /* STEP 2: Read input data, either from STDIN or files.
+                   For files, use fopen() and remember to close the old descriptor. */
+        
+        read(0, buf, 100);
+        
+        /* STEP 3: Call the tested library on data, main program logic here. */
+    }
+
+    return 0;
+}
+```
+
 ## Corpus
 * https://github.com/strongcourage/fuzzing-corpus
 * https://github.com/dvyukov/go-fuzz-corpus
