@@ -112,6 +112,11 @@ int main(int argc, char **argv) {
 ## Binary-only Fuzzing (QEMU)
 Run `afl-fuzz` with the `-Q` flag, which will enable QEMU mode.
 
+Environment variables can be set with the following before running `afl-fuzz`:
+```bash
+$ export AFL_QEMU_PERSISTENT_GPR=1
+```
+
 Persistent Mode environment variables [Persistent Mode Docs](https://github.com/AFLplusplus/AFLplusplus/blob/stable/qemu_mode/README.persistent.md):
 | Environment Variable     | Explanation   |
 |--------------------------|---------------|
@@ -122,7 +127,7 @@ Persistent Mode environment variables [Persistent Mode Docs](https://github.com/
 | AFL_QEMU_PERSISTENT_CNT  | Loop counter, should be between 100 and 10000|
 
 Documentation
-* [General Docs](https://github.com/AFLplusplus/AFLplusplus/blob/stable/qemu_mode/README.md) 
+* [QEMU Mode Docs](https://github.com/AFLplusplus/AFLplusplus/blob/stable/qemu_mode/README.md) 
 
 ## libtokencap
 Can be found in `AFLplusplus/libtokencap`
