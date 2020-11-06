@@ -42,6 +42,7 @@ Optional flags:
 | Flag       | Example                 | Explanation                                                            |
 |------------|-------------------------|------------------------------------------------------------------------|
 | -x <dict>  | -x my.dict              | Use dictionary                                                         |
+| -m <amount>| -m none                 | Memory limit for child process                                         |
 | -M/-S <id> | -M fuzzer01             | Parallel fuzzing, refer to https://aflplus.plus/docs/parallel_fuzzing/ |
 
 Dictionaries can be found:
