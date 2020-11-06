@@ -67,9 +67,34 @@ done
 sort -u temp_output.txt > afl_dictionary.dict
 ```
 
-## Persistent Mode
-Useful for fast targets, provides x2 speed boost. Example `harness.c`:
+## Persistent Mode and Deferred Fork-server
+Find a location in code where cloning can take place. It should be before:
+* Creation of threads or child processes
+* Initialization of timers
+* Creation of temporary files, network sockets
+* Any access to fuzzed input, including reading its metadata
 
+Add the code below in an appropriate location in the harness:
+```c
+#ifdef __AFL_HAVE_MANUAL_CONTROL
+  __AFL_INIT();
+#endif
+```
+
+Persistent mode can be utilized with the code structure below:
+```c
+  while (__AFL_LOOP(1000)) {
+
+    /* Read input data. */
+    /* Call library code to be fuzzed. */
+    /* Reset state. */
+
+  }
+
+  /* Exit normally */
+ ```
+
+Example `harness.c`:
 ```c
 #include <stdio.h>
 #include <stdlib.h>
@@ -83,19 +108,18 @@ int main(int argc, char **argv) {
     #ifdef __AFL_HAVE_MANUAL_CONTROL
         __AFL_INIT();
     #endif
-    unsigned char *buf = __AFL_FUZZ_TESTCASE_BUF; // AFL testcase input
+    
+    /* Initialize variables to be used */
+    char buf[100];
     
     // Number passed to __AFL_LOOP() is the maximum number of iterations before termination
     while (__AFL_LOOP(1000)) {
         int len = __AFL_FUZZ_TESTCASE_LEN; // Length of testcase
         
-        /* Main program logic here, testcase stored in buf, can be access using: 
-          
-          (char *) buf 
-          
-          For example: */
-          
-        xmlDocPtr doc = doc = xmlReadMemory((char *) buf, len, "noname.xml", NULL, 0);
+        /* Main program logic here 
+           STEP 1: Re-initialize variables */
+        
+        memset(buf, 0, sizeof(buf));
     }
 
     return 0;
