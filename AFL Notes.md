@@ -114,7 +114,10 @@ Run `afl-fuzz` with the `-Q` flag, which will enable QEMU mode.
 
 Environment variables can be set with the following before running `afl-fuzz`:
 ```bash
-$ export AFL_QEMU_PERSISTENT_GPR=1
+export AFL_QEMU_PERSISTENT_ADDR=
+export AFL_QEMU_PERSISTENT_RET=
+export AFL_QEMU_PERSISTENT_GPR=1
+afl-fuzz -Q -i <input dir> -o <output dir> <vulnerable program> @@
 ```
 
 Persistent Mode environment variables [Persistent Mode Docs](https://github.com/AFLplusplus/AFLplusplus/blob/stable/qemu_mode/README.persistent.md):
