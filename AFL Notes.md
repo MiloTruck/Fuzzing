@@ -1,7 +1,7 @@
 # AFL Notes
 
 ## Compiling C code into binaries:
-Makefile, same it with the name `Makefile`:
+Makefile, save it with the name `Makefile`:
 ```
 # Enable debugging and suppress pesky warnings
 CFLAGS ?= -g -w
